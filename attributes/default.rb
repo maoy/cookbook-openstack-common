@@ -18,15 +18,8 @@
 #
 
 # Note(maoy): assumptions about the network setup:
-
 default["openstack"]["internal_interface"] = node["network"]["default_interface"]
 default["openstack"]["external_interface"] = node["network"]["default_interface"]
-
-node["network"]["interfaces"].each do |iface, addrs|
-  ipv4 = addrs['addresses'].select { |address, data| data["family"] == "inet" }.keys[0]
-  default["openstack"]["external_ipv4"] = ipv4 if iface == node["openstack"]["external_interface"]
-  default["openstack"]["internal_ipv4"] = ipv4 if iface == node["openstack"]["internal_interface"]
-end
 
 # Setting this to True means that database passwords and service user
 # passwords for Keystone will be easy-to-remember values -- they will be
